@@ -11,5 +11,5 @@ pip3 install aliyun-python-sdk-alidns
 domain配置自己的域名  
 second-level-domain 配置对应的二级域名，
 如果不想使用二级域名可以配置成@，就是一级的域名
-然后执行
+然后执行  
 python3 DDNS.py
