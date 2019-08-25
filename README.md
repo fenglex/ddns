@@ -1,2 +1,0 @@
-# ddns
-ddns for aliyun
