@@ -1,5 +1,5 @@
 
-需要自行安装pyhton3的环境，晚上教程很多，这里不在进行赘述
+需要自行安装pyhton3的环境，网上教程很多，这里不在进行赘述
 需要安装下面的依赖包
 ```
 pip3 install aliyun-python-sdk-core  
