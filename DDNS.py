@@ -81,11 +81,9 @@ def update():
 
 
 if __name__ == '__main__':
-
-    while (True):
-      try:
-        update()
+    while True:
+        try:
+            update()
+        except BaseException as err:
+            print(err)
         time.sleep(60)
-      except BaseException:
-        pass
-      
