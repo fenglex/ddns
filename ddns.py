@@ -5,6 +5,7 @@ import requests
 import re
 import json
 import time
+import logging
 from aliyunsdkcore.client import AcsClient
 from aliyunsdkcore.acs_exception.exceptions import ClientException
 from aliyunsdkcore.acs_exception.exceptions import ServerException
@@ -38,7 +39,7 @@ def getIP():
 
 
 def update():
-    print("start time:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+    logging.info("start time:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
     new_ip = getIP()
     with open("./config.json", 'r') as load_f:
         load_dict = json.load(load_f)
@@ -61,7 +62,7 @@ def update():
             old_record_id = record['RecordId']
             break
 
-    print("old_ip->" + old_ip + ",new_ip->" + new_ip)
+    logging.info("old_ip->" + old_ip + ",new_ip->" + new_ip)
     if old_record_id != '' and old_ip != new_ip:
         request = UpdateDomainRecordRequest()
         request.set_accept_format('json')
@@ -70,7 +71,7 @@ def update():
         request.set_Type('A')
         request.set_Value(new_ip)
         client.do_action_with_exception(request)
-        print('更新ip:' + new_ip)
+        logging.info('更新ip:' + new_ip)
     elif old_record_id == '':
         request = AddDomainRecordRequest()
         request.set_accept_format('json')
@@ -81,12 +82,10 @@ def update():
 
         response = client.do_action_with_exception(request)
         # python2:  print(response)
-        print(str(response, encoding='utf-8'))
-        print('添加新ip:' + new_ip)
+        logging.info(str(response, encoding='utf-8'))
+        logging.info('添加新ip:' + new_ip)
     else:
-        print('不需要更新')
-
-    print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+        logging.info('不需要更新')
 
 
 if __name__ == '__main__':
@@ -94,5 +93,5 @@ if __name__ == '__main__':
         try:
             update()
         except BaseException as err:
-            print(err)
+            logging.error(err)
         time.sleep(10)
