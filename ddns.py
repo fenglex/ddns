@@ -21,7 +21,8 @@ def get_ip():
     }
     #  r = requests.get('https://www.ip.cn/')
     # r = requests.get('http://ipinfo.io/ip', headers=headers)
-    r = requests.get('http://www.ip138.com/', headers=headers)
+    # r = requests.get('http://www.ip138.com/', headers=headers)
+    r = requests.get("https://2020.ip138.com/", headers=headers)
     r.encoding = 'gb2312'
     get_ip_address = re.findall('<iframe.*</iframe>', r.text)
     ip_host = re.findall('src="(.*?)"', get_ip_address[0])
@@ -29,9 +30,16 @@ def get_ip():
     ip = re.findall('\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}', ip_str.text)
     return ip[0]
 
+
+def getIP():
+    response = requests.get("http://2020.ip138.com/ic.asp")
+    ip = re.search(r"\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\]", response.content.decode(errors='ignore')).group(0)
+    return ip.replace("[", "").replace("]", "")
+
+
 def update():
     print("start time:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
-    new_ip = get_ip()
+    new_ip = getIP()
     with open("./config.json", 'r') as load_f:
         load_dict = json.load(load_f)
     accessKeyId = load_dict['AccessKeyId']
@@ -53,6 +61,7 @@ def update():
             old_record_id = record['RecordId']
             break
 
+    print("old_ip->" + old_ip + ",new_ip->" + new_ip)
     if old_record_id != '' and old_ip != new_ip:
         request = UpdateDomainRecordRequest()
         request.set_accept_format('json')
