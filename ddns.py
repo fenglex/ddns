@@ -49,7 +49,7 @@ def update():
     client = AcsClient(accessKeyId, accessKeySecret, 'cn-hangzhou')
     request = DescribeDomainRecordsRequest()
     request.set_accept_format('json')
-    request.set_DomainName("haifeng.ink")
+    request.set_DomainName(domain)
     response = client.do_action_with_exception(request)
     records = json.loads(response)['DomainRecords']['Record']
 
