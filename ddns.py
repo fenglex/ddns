@@ -1,18 +1,15 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-import requests
-import re
 import json
+import re
 import time
-import logging
-from aliyunsdkcore.client import AcsClient
-from aliyunsdkcore.acs_exception.exceptions import ClientException
-from aliyunsdkcore.acs_exception.exceptions import ServerException
-from aliyunsdkalidns.request.v20150109.DescribeDomainRecordsRequest import DescribeDomainRecordsRequest
-from aliyunsdkalidns.request.v20150109.DeleteDomainRecordRequest import DeleteDomainRecordRequest
+
+import requests
 from aliyunsdkalidns.request.v20150109.AddDomainRecordRequest import AddDomainRecordRequest
+from aliyunsdkalidns.request.v20150109.DescribeDomainRecordsRequest import DescribeDomainRecordsRequest
 from aliyunsdkalidns.request.v20150109.UpdateDomainRecordRequest import UpdateDomainRecordRequest
+from aliyunsdkcore.client import AcsClient
 
 
 def get_ip():
@@ -39,7 +36,7 @@ def getIP():
 
 
 def update():
-    logging.info("start time:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+    print("start time:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
     new_ip = getIP()
     with open("./config.json", 'r') as load_f:
         load_dict = json.load(load_f)
@@ -62,7 +59,7 @@ def update():
             old_record_id = record['RecordId']
             break
 
-    logging.info("old_ip->" + old_ip + ",new_ip->" + new_ip)
+    print("old_ip->" + old_ip + ",new_ip->" + new_ip)
     if old_record_id != '' and old_ip != new_ip:
         request = UpdateDomainRecordRequest()
         request.set_accept_format('json')
@@ -71,7 +68,7 @@ def update():
         request.set_Type('A')
         request.set_Value(new_ip)
         client.do_action_with_exception(request)
-        logging.info('更新ip:' + new_ip)
+        print('更新ip:' + new_ip)
     elif old_record_id == '':
         request = AddDomainRecordRequest()
         request.set_accept_format('json')
@@ -82,10 +79,10 @@ def update():
 
         response = client.do_action_with_exception(request)
         # python2:  print(response)
-        logging.info(str(response, encoding='utf-8'))
-        logging.info('添加新ip:' + new_ip)
+        print(str(response, encoding='utf-8'))
+        print('添加新ip:' + new_ip)
     else:
-        logging.info('不需要更新')
+        print('不需要更新')
 
 
 if __name__ == '__main__':
@@ -93,5 +90,5 @@ if __name__ == '__main__':
         try:
             update()
         except BaseException as err:
-            logging.error(err)
+            print(err)
         time.sleep(10)
