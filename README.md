@@ -2,9 +2,7 @@
 需要自行安装pyhton3的环境，网上教程很多，这里不在进行赘述
 需要安装下面的依赖包
 ```
-pip3 install aliyun-python-sdk-core  
-pip3 install requests  
-pip3 install aliyun-python-sdk-alidns  
+pip3 install aliyun-python-sdk-core requests aliyun-python-sdk-alidns  
 ```
 
 需要在config.json中配置自己的阿里云的accessKey等信息  
