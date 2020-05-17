@@ -11,3 +11,5 @@ ExecStart=/usr/bin/python3 /opt/ddns/ddns.py
 
 [Install]
 WantedBy=multi-user.target
+
+#copy into /usr/lib/systemd/system
