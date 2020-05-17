@@ -1,0 +1,13 @@
+[Unit]
+Description=Ddns service
+After=network.target
+
+[Service]
+Type=simple
+User=nobody
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/bin/python3 /opt/ddns/ddns.py
+
+[Install]
+WantedBy=multi-user.target
