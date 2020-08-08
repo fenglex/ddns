@@ -30,14 +30,14 @@ def get_ip():
 
 
 def getIP():
-    response = requests.get("http://2020.ip138.com/ic.asp")
-    ip = re.search(r"\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\]", response.content.decode(errors='ignore')).group(0)
-    return ip.replace("[", "").replace("]", "")
+    response = requests.get("http://fenglex.com:8091/net/ipv4")
+    return str(response.content, encoding="utf-8")
 
 
 def update():
     print("start time:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
     new_ip = getIP()
+    print("current ip:" + new_ip)
     with open("./config.json", 'r') as load_f:
         load_dict = json.load(load_f)
     accessKeyId = load_dict['AccessKeyId']
@@ -84,6 +84,7 @@ def update():
     else:
         print('不需要更新')
     print("end time:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+
 
 if __name__ == '__main__':
     while True:
