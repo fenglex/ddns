@@ -11,3 +11,8 @@ second-level-domain 配置对应的二级域名，
 如果不想使用二级域名可以配置成@，就是一级的域名
 然后执行  
 python3 DDNS.py
+
+拷贝ddns.service到/usr/lib/systemd/system
+
+设置开机启动
+systemctl enable ddns
