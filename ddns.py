@@ -30,7 +30,7 @@ def get_ip():
 
 
 def getIP():
-    response = requests.get("http://fenglex.com:8091/net/ipv4")
+    response = requests.get("http://fenglex.com:8091/net/ipv4?key=JSnQBl9yuVAeGjJqYdeg")
     return str(response.content, encoding="utf-8")
 
 
